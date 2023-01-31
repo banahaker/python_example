@@ -10,7 +10,7 @@ def GCD(x, y):
 
 def isPrime(n):
   c = 2
-  while c <= n:
+  while c < n:
     if n%c == 0:
       return True
     c+=1
