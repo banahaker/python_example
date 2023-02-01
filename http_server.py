@@ -1,25 +1,25 @@
-# Example for wtf server (Vanilla Python)
+from typing import Union
 
-from http.server import BaseHTTPRequestHandler, HTTPServer
-hostName = "localhost"
-serverPort = 8080
+from fastapi import FastAPI
 
-class MyServer(BaseHTTPRequestHandler):
-   def do_GET(self):
-       self.send_response(200)
-       self.send_header("Content-type", "text/html")
-       self.end_headers()       
-       self.wfile.write(bytes("aaa", "utf-8"))
+app = FastAPI()
 
-if __name__ == "__main__":       
-   webServer = HTTPServer((hostName, serverPort), MyServer)
-   print("Server started http://%s:%s" % (hostName, serverPort))
+users = {
+    "a": "aaa",
+    "b": "bbb"
+}
 
-   try:
-       webServer.serve_forever()
-   except KeyboardInterrupt:
-       pass
+@app.get("/")
+def read_root():
+    return {"Hello": "World", "world": "hello"}
 
-   webServer.server_close()
-   print("Server stopped.")
 
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+
+@app.get("/user/")
+def get_user(user_id: str):
+    if user_id in users:
+        return {"user_id": users[user_id]}
+    return {"user_id": "user not found"}
