@@ -8,5 +8,3 @@ def isPrime(n):
     c+=1
 
   return False
-
-print(isPrime(23))
