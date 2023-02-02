@@ -5,7 +5,7 @@ def GCD(x, y):
     c = x
   else:
       c = y
-  for k in range(c, 2, -1):
+  for k in range(c, 0, -1):
       if x % k == 0 and y % k == 0:
           return k
   return 1
